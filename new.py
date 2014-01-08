@@ -15,6 +15,8 @@ import random
 #import logging
 import smtplib
 from email.mime.text import MIMEText
+from StringIO import StringIO
+from PIL import Image
 
 # Global variables
 stations = []
@@ -247,9 +249,8 @@ def getCaptcha(url, module, rand):
   randUrl = 'https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew.do?module=%s&rand=%s'%(module, rand);
   captcha = ''
   while 1:
-    f = open("captcha.gif","wb")
-    f.write(urllib2.urlopen(url).read())
-    f.close()
+    im = Image.open(StringIO(urllib2.urlopen(url).read()))
+    im.save("captcha.gif")
     print u"请输入4位图片验证码(直接回车刷新):"
     url = "%s&%1.16f"%(randUrl, random.random())
     captcha = raw_input("")
