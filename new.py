@@ -586,7 +586,7 @@ class MyOrder(object):
     print u"%s\t%s--->%s  '有':票源充足  '无':票已售完  '*':未到起售时间  '--':无此席别"%(self.train_date,self.from_city_name,self.to_city_name)
     print u"余票查询结果如下:"
     printDelimiter()
-    print u"序号/车次\t乘车站\t目的站\t一等座\t二等座\t软卧\t硬卧\t软座\t硬座\t无座\t价格"
+    print u"序号/车次\t乘车站\t目的站\tstart\tarrive\t一等座\t二等座\t软卧\t硬卧\t软座\t硬座\t无座\t价格"
     seatTypeCode = {
       'swz':'商务座',
       'tz':'特等座',
@@ -652,10 +652,12 @@ class MyOrder(object):
         i = i + 1
       yz_price = u'硬座%s'%(ypInfo['yz']['price']) if ypInfo['yz']['price'] else ''
       yw_price = u'硬卧%s'%(ypInfo['yw']['price']) if ypInfo['yw']['price'] else ''
-      print u"(%d)   %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s%s"%(index,
+      print u"(%d)   %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s%s"%(index,
         t['station_train_code'],
         t['from_station_name'],
         t['to_station_name'],
+        t['start_time'],
+        t['arrive_time'],
         t["zy_num"],
         t["ze_num"],
         ypInfo['rw']['left'] if ypInfo['rw']['left'] else t["rw_num"],
